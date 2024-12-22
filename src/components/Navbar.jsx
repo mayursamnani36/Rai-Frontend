@@ -1,11 +1,14 @@
+import Cookies from "js-cookie";
+import React from "react";
+import { Link } from "react-router";
 const Navbar = () => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <Link className="navbar-brand" to="/">
             Rai
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,14 +23,32 @@ const Navbar = () => {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <a className="nav-link" aria-current="page" href="#">
+                <Link className="nav-link" aria-current="page" to="/">
                   My Tasks
-                </a>
+                </Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle"
+                  to="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   Boards
-                </a>
+                </Link>
+                <ul className="dropdown-menu">
+                  <li>
+                    <Link className="dropdown-item" to="/boards/1">
+                      Board 1
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/boards/2">
+                      Board 2
+                    </Link>
+                  </li>
+                </ul>
               </li>
             </ul>
             <form className="d-flex" role="search">
@@ -37,10 +58,26 @@ const Navbar = () => {
                 placeholder="Search Tasks"
                 aria-label="Search"
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button
+                className="btn btn-outline-success"
+                type="submit"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+              >
                 Search
               </button>
             </form>
+            <button
+              className="ms-3 btn btn-outline-danger"
+              onClick={(e) => {
+                e.preventDefault();
+                Cookies.remove("raiToken");
+                window.location.href = "/login";
+              }}
+            >
+              Logout
+            </button>
           </div>
         </div>
       </nav>
