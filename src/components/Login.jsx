@@ -24,7 +24,7 @@ const Login = () => {
         }),
       });
 
-      if (response.status <= 300) {
+      if (response.status < 300) {
         document.cookie = `raiToken=${await response.text()}; path=/;`;
         window.location.href = "/";
       } else {
