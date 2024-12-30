@@ -8,21 +8,35 @@ import Signup from "./components/Signup.jsx";
 import React from "react";
 import Login from "./components/Login.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import { Provider } from "react-redux";
+import raiStore from "./store/Store.jsx";
+import CreateTask from "./components/CreateTask.jsx";
+import CreateBoard from "./components/CreateBoard.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<ProtectedRoute element={<App />} />}>
-          <Route index element={<Tasks />} />
-          <Route
-            path="boards/:boardId"
-            element={<ProtectedRoute element={<Board />} />}
-          />
-        </Route>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={raiStore}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute element={<App />} />}>
+            <Route index element={<Tasks />} />
+            <Route
+              path="boards/:boardId"
+              element={<ProtectedRoute element={<Board />} />}
+            />
+            <Route
+              path="createTask"
+              element={<ProtectedRoute element={<CreateTask />} />}
+            />
+            <Route
+              path="createBoard"
+              element={<ProtectedRoute element={<CreateBoard />} />}
+            />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>
 );
