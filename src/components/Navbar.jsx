@@ -1,7 +1,9 @@
 import Cookies from "js-cookie";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router";
 const Navbar = () => {
+  const boards = useSelector((state) => state.boards);
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -38,14 +40,39 @@ const Navbar = () => {
                   Boards
                 </Link>
                 <ul className="dropdown-menu">
+                  {boards.map((board) => {
+                    return (
+                      <li key={board.id}>
+                        <Link
+                          className="dropdown-item"
+                          to={`/boards/${board.id}`}
+                        >
+                          {board.title}
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </li>
+              <li className="nav-item dropdown">
+                <Link
+                  className="nav-link dropdown-toggle"
+                  to="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Create
+                </Link>
+                <ul className="dropdown-menu">
                   <li>
-                    <Link className="dropdown-item" to="/boards/1">
-                      Board 1
+                    <Link className="dropdown-item" to={`/createTask`}>
+                      Task
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/boards/2">
-                      Board 2
+                    <Link className="dropdown-item" to={`/createBoard`}>
+                      Board
                     </Link>
                   </li>
                 </ul>
